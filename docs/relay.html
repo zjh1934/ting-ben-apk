@@ -47,7 +47,8 @@ async function go(){
    $('s').textContent='手机合成并压缩好了，正在取回…';
    let raw;
    try{const a=await req('GET','/contents/'+j.audio+'?ref=main');
-       raw=Uint8Array.from(atob((a.data.content||'').replace(/\s/g,'')),c=>c.charCodeAt(0));
+       if(!a.data.content)throw new Error('文件超过 1MB，改走 blob');
+       raw=Uint8Array.from(atob(a.data.content.replace(/\s/g,'')),c=>c.charCodeAt(0));
    }catch(e){
        const a=await req('GET','/git/blobs/'+(j.sha||''),null,'application/vnd.github.raw');
        raw=new Uint8Array(a.data);
