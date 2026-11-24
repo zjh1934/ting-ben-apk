@@ -4,14 +4,14 @@
   <id>https://github.com/zjh1934/tingben/releases</id>
   <link rel="self" type="application/atom+xml" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/updates.atom"/>
   <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases"/>
-  <updated>2026-11-24T11:57:38Z</updated>
+  <updated>2026-11-24T13:27:26Z</updated>
   <subtitle>每条更新都带可直接下载的 APK 附件（enclosure），下载器按此取包。</subtitle>
   <entry>
-    <title>听本 1.1.50</title>
-    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.50</id>
-    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.50"/>
-    <link rel="enclosure" type="application/vnd.android.package-archive" length="19227376" href="https://raw.githubusercontent.com/zjh1934/ting-ben-apk/main/app-debug.apk"/>
-    <updated>2026-11-24T11:57:38Z</updated>
-    <summary>听本 1.1.50 · APK 19227376 字节。</summary>
+    <title>听本 1.1.51</title>
+    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.51</id>
+    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.51"/>
+    <link rel="enclosure" type="application/vnd.android.package-archive" length="19227513" href="https://raw.githubusercontent.com/zjh1934/ting-ben-apk/main/app-debug.apk"/>
+    <updated>2026-11-24T13:27:26Z</updated>
+    <summary>听本 1.1.51 · APK 19227513 字节。</summary>
   </entry>
 </feed>
