@@ -1,3 +1,6 @@
 # 听本安装包
 
-浏览器直接打开 app-debug.apk 即可下载；订阅源 updates.atom 由下载器使用；源码与 CI 在 zjh1934/tingben。
+每次发版提供 `tingben-v<版本>.apk`（软件名+版本号，下载器里一眼分清是哪个项目、哪个版本）。
+订阅源 `updates.atom` 的附件就指向它，下载器按此取包。
+`app-debug.apk` 是同内容的兼容旧名，只给还没刷新的老直链兜底，不会再新增分不清的条目。
+源码与 CI 在 zjh1934/tingben。
