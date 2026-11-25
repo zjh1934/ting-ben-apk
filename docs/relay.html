@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>听本 · 跨网语音中继</title>
+<title>听本 · 提交合成文字</title>
 <style>body{font:15px/1.7 system-ui,sans-serif;max-width:680px;margin:24px auto;padding:0 16px;color:#222}
 h2{margin-bottom:4px}p{margin:8px 0}input,textarea,button{font:inherit;box-sizing:border-box}
 input,textarea{width:100%;padding:8px;border:1px solid #bbb;border-radius:8px}
@@ -8,15 +8,17 @@ textarea{height:92px}button{padding:10px 18px;border:0;border-radius:8px;backgro
 button:disabled{background:#999}#s{white-space:pre-wrap;background:#f5f6f8;padding:10px;border-radius:8px;min-height:24px}
 audio{width:100%;margin-top:10px}.note{font-size:12px;color:#666}a{color:#2f6fed}</style></head>
 <body>
-<h2>听本 · 跨网语音中继</h2>
-<p>音色用的是手机上调音台当前预设，这里只填文字。拿到的是手机本地压缩好的音频。</p>
+<p class="note"><a href="index.html">← 听本首页</a> · 这一页才提交文字</p>
+<h2>听本 · 提交合成文字</h2>
+<p>音色用的是手机上调音台当前预设，这里只填文字。拿到的是手机本地压缩好的音频（M4A，失败时回退 WAV）。</p>
 <p>仓库 <input id="o" value="zjh1934"> / <input id="r" value="tingben-relay"></p>
 <p>Token（只发往 api.github.com）<input id="k" type="password" placeholder="github_pat_..."></p>
 <p>要念的文字<textarea id="t">你好，这是一段跨网测试。</textarea></p>
 <p><button id="b" onclick="go()">提交并等待音频</button> &nbsp; <a id="dl" download="tingben.m4a" style="display:none">下载音频</a></p>
 <div id="s">还没提交。</div>
 <audio id="a" controls></audio>
-<p class="note">文字经过私有 GitHub 仓库，手机合成完立刻删请求文件；Token 只给这一个仓库。异步，几秒到十几秒。</p>
+<p class="note">文字经过私有 GitHub 仓库，手机合成完立刻删请求文件；Token 只给这一个仓库。异步，几秒到十几秒。
+手机要开着「设置 → 跨网中继」。</p>
 <script>
 const $=id=>document.getElementById(id);
 const API=()=> 'https://api.github.com/repos/'+$('o').value.trim()+'/'+$('r').value.trim();
