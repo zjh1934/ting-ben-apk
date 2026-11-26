@@ -4,19 +4,17 @@
   <id>https://github.com/zjh1934/tingben/releases</id>
   <link rel="self" type="application/atom+xml" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/updates.atom"/>
   <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases"/>
-  <updated>2026-11-26T09:16:16Z</updated>
+  <updated>2026-11-26T10:06:02Z</updated>
   <subtitle>每条更新都带可直接下载的 APK 附件（enclosure），下载器按此取包；文件名含软件名与版本号。</subtitle>
   <entry>
-    <title>听本 v1.1.63</title>
-    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.63</id>
-    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.63"/>
-    <link rel="enclosure" type="application/vnd.android.package-archive" length="19369983" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.63.apk"/>
-    <updated>2026-11-26T09:16:16Z</updated>
-    <summary>听本 v1.1.63 · 安装包 tingben-v1.1.63.apk · 19369983 字节。</summary>
-    <content type="text">真机截图里点抽屉「v1.1.62」只弹「没找到浏览器，可手动打开 github.com/zjh1934/tingben」——一句无法操作的死路提示。派三个研究员分别查开源 App 的关于页 / 检查更新 / 外链兜底方案，综合定案后执行：
-- **点版本号进「关于听本」页**（独立全屏壳，不往设置页再叠一层）。抽屉那枚按钮的位置、44dp 视觉令牌、两枚等宽全部不动，只把「点它 = 跳浏览器」换成「点它 = 进关于页」。
-- **检查更新**：只读现有 jsdelivr 镜像 `updates.atom`（XmlPullParser 手析，零新增依赖/权限）；五态中文文案（点击检查 / 正在检查 / 已是最新 / 发现新版 / 检查失败）；版本按点分段比数值（`1.1.9` 不会被判成比 `1.1.62` 新）；进页 24h 节流自动查、手动「再查一次」不节流并绕过「跳过此版本」；发现新版给「下载更新 / 复制直链 / 查看历史 / 跳过此版本」，不强制、不应用内安装。
-- **版本信息卡**：版本名、versionCode、构建类型、Git 短哈希、构建时间、Android/SDK、品牌型号、ABI、命中源。commit 与构建时间在构建期用 `buildConfigField` 固定，不用运行时钟；连点版本号 7 次解锁签名短哈希与安装包体积（只切静态可见性，不碰合成链）。
--</content>
+    <title>听本 v1.1.64</title>
+    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.64</id>
+    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.64"/>
+    <link rel="enclosure" type="application/vnd.android.package-archive" length="19371015" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.64.apk"/>
+    <updated>2026-11-26T10:06:02Z</updated>
+    <summary>听本 v1.1.64 · 安装包 tingben-v1.1.64.apk · 19371015 字节。</summary>
+    <content type="text">用户把 1.1.63 装上真机（Xiaomi 24117RK2CC / Android 17 / SDK 37），发回关于页截图与复制出来的诊断信息。**静态 33/33、两次真编译全绿，不等于好用**——截图里「检查更新」显示「更新信息格式异常，可去项目主页查看」，而且卡片里冒出两个「再查一次」。
+**① 检查更新必报格式异常（P0）**：线上 `updates.atom` 首条 entry 的标题是 `听本 v1.1.63`，不是纯版本号。R408 的 `parse()` 把整串 `&lt;title&gt;` 当 `Info.version`，`compare()` 里 `听本 v1` 转不成 Int，返回 `-2`，于是每次检查都落到「格式异常」。守门当时只喂 `1.1.64` / `v1.1.62` 这种干净串，没覆盖线上真实形态——这是测试数据被洗干净的假绿。现在用 `VERSION_RE` 只抽 `v?数字(.数字)+`，抽不到才留原文走格式异常兜底；tag 采集补 `inEntry` 守卫（feed 级 `&lt;title&gt;`/`&lt;updated&gt;` 不许污染 entry），读到第一个 `&lt;/entry&gt;` 即返回，不再扫 feed 尾部。
+**② 失败态画出两个「再查一次」**：卡片底部本来就常驻一个，失败态分支又自己画了一个主按钮，截图里一浅紫一黑字叠着，说明行被挤到悬浮球后面</content>
   </entry>
 </feed>
