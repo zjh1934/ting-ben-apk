@@ -4,17 +4,18 @@
   <id>https://github.com/zjh1934/tingben/releases</id>
   <link rel="self" type="application/atom+xml" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/updates.atom"/>
   <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases"/>
-  <updated>2026-11-26T10:06:02Z</updated>
+  <updated>2026-11-27T17:22:17Z</updated>
   <subtitle>每条更新都带可直接下载的 APK 附件（enclosure），下载器按此取包；文件名含软件名与版本号。</subtitle>
   <entry>
-    <title>听本 v1.1.64</title>
-    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.64</id>
-    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.64"/>
-    <link rel="enclosure" type="application/vnd.android.package-archive" length="19371015" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.64.apk"/>
-    <updated>2026-11-26T10:06:02Z</updated>
-    <summary>听本 v1.1.64 · 安装包 tingben-v1.1.64.apk · 19371015 字节。</summary>
-    <content type="text">用户把 1.1.63 装上真机（Xiaomi 24117RK2CC / Android 17 / SDK 37），发回关于页截图与复制出来的诊断信息。**静态 33/33、两次真编译全绿，不等于好用**——截图里「检查更新」显示「更新信息格式异常，可去项目主页查看」，而且卡片里冒出两个「再查一次」。
-**① 检查更新必报格式异常（P0）**：线上 `updates.atom` 首条 entry 的标题是 `听本 v1.1.63`，不是纯版本号。R408 的 `parse()` 把整串 `&lt;title&gt;` 当 `Info.version`，`compare()` 里 `听本 v1` 转不成 Int，返回 `-2`，于是每次检查都落到「格式异常」。守门当时只喂 `1.1.64` / `v1.1.62` 这种干净串，没覆盖线上真实形态——这是测试数据被洗干净的假绿。现在用 `VERSION_RE` 只抽 `v?数字(.数字)+`，抽不到才留原文走格式异常兜底；tag 采集补 `inEntry` 守卫（feed 级 `&lt;title&gt;`/`&lt;updated&gt;` 不许污染 entry），读到第一个 `&lt;/entry&gt;` 即返回，不再扫 feed 尾部。
-**② 失败态画出两个「再查一次」**：卡片底部本来就常驻一个，失败态分支又自己画了一个主按钮，截图里一浅紫一黑字叠着，说明行被挤到悬浮球后面</content>
+    <title>听本 v1.1.65</title>
+    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.65</id>
+    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.65"/>
+    <link rel="enclosure" type="application/vnd.android.package-archive" length="19372167" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.65.apk"/>
+    <updated>2026-11-27T17:22:17Z</updated>
+    <summary>听本 v1.1.65 · 安装包 tingben-v1.1.65.apk · 19372167 字节。</summary>
+    <content type="text">用户要的是一条很窄的规矩：**手机电量低于 20% 就拒绝本地电子书的合成请求；远端中继、语音网关、调音台试听、首页粘贴文字合成一律不拒绝。**
+**落点**：新增 `core/BatteryGate.kt`，用 `ACTION_BATTERY_CHANGED` 的 sticky 广播读电量（`registerReceiver(null, filter)`），**零新增权限、零新增依赖**；判定严格 `pct &lt; 20`，20% 本身放行；读不到电池（模拟器 / 无电池设备）一律放行，不误伤。日志只记 `pct / plugged / status`，不落书名、正文与任何标识。
+**四个入口都拦**：`Producer.enqueueOrStart`（目录页开始制作 / 制作选中章节 / 两处单章与选中段重做）、`resumeQueue`（继续队列）、`autoResume`（冷启恢复弹窗点「继续制作」）、以及唯一的兜底 `start()`——所有电子书制作路径最终都过它，队列泵 `pumpQueue` 的自动续跑也被这一道挡住。拦在 `busy = true` **之前**：不入队、不写 `TaskResume.save`、不启前台服务、不碰已做段；低电时排队项被放回并暂停，电够了点「继续队列」即可，断点数据一条不丢。
+**不拦的**：`relay/`、`gateway/`、`c</content>
   </entry>
 </feed>
