@@ -4,18 +4,19 @@
   <id>https://github.com/zjh1934/tingben/releases</id>
   <link rel="self" type="application/atom+xml" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/updates.atom"/>
   <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases"/>
-  <updated>2026-11-27T17:22:17Z</updated>
+  <updated>2026-11-28T01:20:57Z</updated>
   <subtitle>每条更新都带可直接下载的 APK 附件（enclosure），下载器按此取包；文件名含软件名与版本号。</subtitle>
   <entry>
-    <title>听本 v1.1.65</title>
-    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.65</id>
-    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.65"/>
-    <link rel="enclosure" type="application/vnd.android.package-archive" length="19372167" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.65.apk"/>
-    <updated>2026-11-27T17:22:17Z</updated>
-    <summary>听本 v1.1.65 · 安装包 tingben-v1.1.65.apk · 19372167 字节。</summary>
-    <content type="text">用户要的是一条很窄的规矩：**手机电量低于 20% 就拒绝本地电子书的合成请求；远端中继、语音网关、调音台试听、首页粘贴文字合成一律不拒绝。**
-**落点**：新增 `core/BatteryGate.kt`，用 `ACTION_BATTERY_CHANGED` 的 sticky 广播读电量（`registerReceiver(null, filter)`），**零新增权限、零新增依赖**；判定严格 `pct &lt; 20`，20% 本身放行；读不到电池（模拟器 / 无电池设备）一律放行，不误伤。日志只记 `pct / plugged / status`，不落书名、正文与任何标识。
-**四个入口都拦**：`Producer.enqueueOrStart`（目录页开始制作 / 制作选中章节 / 两处单章与选中段重做）、`resumeQueue`（继续队列）、`autoResume`（冷启恢复弹窗点「继续制作」）、以及唯一的兜底 `start()`——所有电子书制作路径最终都过它，队列泵 `pumpQueue` 的自动续跑也被这一道挡住。拦在 `busy = true` **之前**：不入队、不写 `TaskResume.save`、不启前台服务、不碰已做段；低电时排队项被放回并暂停，电够了点「继续队列」即可，断点数据一条不丢。
-**不拦的**：`relay/`、`gateway/`、`c</content>
+    <title>听本 v1.1.66</title>
+    <id>https://github.com/zjh1934/tingben/releases/tag/v1.1.66</id>
+    <link rel="alternate" type="text/html" href="https://github.com/zjh1934/tingben/releases/tag/v1.1.66"/>
+    <link rel="enclosure" type="application/vnd.android.package-archive" length="19373242" href="https://cdn.jsdelivr.net/gh/zjh1934/ting-ben-apk@main/tingben-v1.1.66.apk"/>
+    <updated>2026-11-28T01:20:57Z</updated>
+    <summary>听本 v1.1.66 · 安装包 tingben-v1.1.66.apk · 19373242 字节。</summary>
+    <content type="text">**① 转圈定位（真机回执）**：用户把软件关掉或更新后再续跑，第一章明明已经合成完、拼接完、转码完，转圈却还钉在第一章第一个灰色音频小块上；第二章其实已经做了一半（点开看到绿灰相间），但完全看不出有没有在合成。
+根因是 `chapterProgress`（逐章进度）**只是内存态**：`Producer.start()` 开跑时把它重置成空表，续跑开局那条 `emit` 也没传；`ChapterHub.makingChapter` 遍历空表就兜底到第 0 章 → 展开第一章 → `segBusyIndex` 把转圈画在第一章第一个没音频的格子上。已固化章里残留的 redo 标记还会再画一个。
+**三处一起修**：
+- `Producer` 续跑开局在算 `pending` 的同一次扫盘里按 `segChapter` 归出「逐章已完成段数」，作为 `emit` 的初始 `chapterProgress`，并作为 `perChapterDone` 的起点——后续 `chapterSnapshot` 不会把已完成章从表里抹掉；旧 `count{}` 改显式 `for`，判 pending 的语义一字未改。
+- `ChapterHub.makingChapter` 改成**磁盘真值优先**：已经拼成章音频的章一律算 1f（完成），内存态只用来分辨没固化章里谁做了多少；`remember`</content>
   </entry>
 </feed>
